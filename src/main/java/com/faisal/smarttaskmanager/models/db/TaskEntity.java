@@ -28,6 +28,7 @@ public class TaskEntity {
     private Category category;
 
     private boolean completed = false;
+    private boolean deadlineNear = false;
 
     @ManyToOne
     private UserEntity userEntities;

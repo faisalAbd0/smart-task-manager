@@ -11,11 +11,14 @@ import com.faisal.smarttaskmanager.models.resources.requests.UpdateTaskRequestRe
 import com.faisal.smarttaskmanager.mappers.TaskMapper;
 import com.faisal.smarttaskmanager.models.db.TaskEntity;
 import com.faisal.smarttaskmanager.contracts.TaskRepository;
+import com.faisal.smarttaskmanager.repository.TaskRepositoryJpa;
 import com.faisal.smarttaskmanager.validators.CreateTaskValidator;
 import com.faisal.smarttaskmanager.validators.UpdateTaskValidator;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 
 @Component
@@ -28,6 +31,7 @@ public class TaskService {
     private final UpdateTaskValidator updateTaskValidator;
     private final IdGenerator idGenerator;
     private final DateTimeProvider dateTimeProvider;
+    private final TaskRepositoryJpa taskRepositoryJpa;
 
     public TaskResourceResponse addTask(CreateTaskRequestResource requestResource) {
         createTaskValidator.validateTaskInfo(requestResource);
@@ -49,8 +53,13 @@ public class TaskService {
         Task task = mapper.toTask(requestResource);
         TaskEntity taskEntity = getIfExists(task.getTaskId());
         updateTaskEntity(taskEntity, task);
+        persistUpdatedEntity(taskEntity);
 
         return mapper.toResource(taskEntity);
+    }
+
+    private void persistUpdatedEntity(TaskEntity taskEntity) {
+        taskRepository.update(taskEntity);
     }
 
     private void updateTaskEntity(TaskEntity taskEntity, Task task) {
@@ -61,7 +70,20 @@ public class TaskService {
         taskEntity.setTitle(task.getTitle());
     }
 
+    public void deleteTask(String taskId) {
+        TaskEntity taskEntity = getIfExists(taskId);
+        taskRepository.deleteByTaskId(taskEntity.getId());
+    }
+
     private TaskEntity getIfExists(String taskId) {
         return taskRepository.getByTaskId(taskId).orElseThrow(ResourceNotFoundException::new);
+    }
+
+    public List<TaskResourceResponse> findAll() {
+        return mapper.toResourceList(taskRepositoryJpa.findAll());
+    }
+
+    public TaskResourceResponse findByTaskId(String taskId) {
+        return mapper.toResource(taskRepositoryJpa.findByTaskId(taskId));
     }
 }

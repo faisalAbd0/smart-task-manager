@@ -9,6 +9,8 @@ import com.faisal.smarttaskmanager.models.resources.requests.UpdateTaskRequestRe
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface TaskMapper {
     TaskResourceResponse toResource(TaskEntity requestResource);
@@ -17,6 +19,7 @@ public interface TaskMapper {
     @Mapping(target = "completed", ignore = true)
     Task toTask(CreateTaskRequestResource requestResource);
 
+    @Mapping(target = "deadlineNear", ignore = true)
     @Mapping(target = "completed", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "userEntities", ignore = true)
@@ -25,5 +28,13 @@ public interface TaskMapper {
 
     @Mapping(target = "createdAt", ignore = true)
     Task toTask(UpdateTaskRequestResource requestResource);
+
+    default List<TaskResourceResponse> toResourceList(List<TaskEntity> taskEntities){
+        return taskEntities
+                .stream()
+                .map(this::toResource)
+                .toList();
+    }
+
 
 }
