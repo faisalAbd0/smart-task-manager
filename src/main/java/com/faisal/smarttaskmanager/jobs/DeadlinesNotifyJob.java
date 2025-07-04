@@ -17,7 +17,7 @@ public class DeadlinesNotifyJob {
     private final TaskRepository taskRepository;
 
     @Scheduled(fixedDelayString = "600000")
-    void executeJob() {
+    void execute() {
         log.debug("deadline checking job starts ...");
 
         List<TaskEntity> taskEntities = taskRepository
@@ -29,7 +29,6 @@ public class DeadlinesNotifyJob {
                 .toList();
 
         taskRepository.updateAll(taskEntities);
-
         log.debug("deadline checking job ends ...");
     }
 }

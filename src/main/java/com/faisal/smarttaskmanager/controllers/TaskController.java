@@ -27,17 +27,17 @@ public class TaskController {
 
     private final TaskService taskService;
 
-    @GetMapping("/{taskId}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public TaskResourceResponse findByTaskId(@PathVariable("taskId") String taskId) {
+    public TaskResourceResponse findByTaskId(@PathVariable("id") String taskId) {
         return taskService.findByTaskId(taskId);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<TaskEntity> findAllTasks(
-            TaskSpec spec
-            , @SortDefault(sort = "deadline", direction = Sort.Direction.DESC) Pageable pageable) {
+    public Page<TaskResourceResponse> findAllTasks(
+            TaskSpec spec,
+            @SortDefault(sort = "deadline", direction = Sort.Direction.DESC) Pageable pageable) {
 
         return taskService.findAll(spec, pageable);
     }

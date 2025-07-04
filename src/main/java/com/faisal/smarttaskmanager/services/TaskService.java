@@ -21,8 +21,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 
 @Component
 @RequiredArgsConstructor
@@ -36,6 +34,17 @@ public class TaskService {
     private final DateTimeProvider dateTimeProvider;
     private final TaskRepositoryJpa taskRepositoryJpa;
 
+    public TaskResourceResponse findByTaskId(String taskId) {
+        TaskEntity taskEntity = taskRepositoryJpa.getByTaskId(taskId)
+                .orElseThrow(ResourceNotFoundException::new);
+        return mapper.toResource(taskEntity);
+    }
+
+    public Page<TaskResourceResponse> findAll(TaskSpec taskSpec, Pageable pageable) {
+        Page<TaskEntity> entities = taskRepositoryJpa.findAll(taskSpec, taskSpec, pageable);
+        return entities.map(mapper::toResource);
+    }
+
     public TaskResourceResponse addTask(CreateTaskRequestResource requestResource) {
         createTaskValidator.validateTaskInfo(requestResource);
 
@@ -43,11 +52,6 @@ public class TaskService {
         setSystemValues(task);
         TaskEntity savedEntity = taskRepository.save(task);
         return mapper.toResource(savedEntity);
-    }
-
-    private void setSystemValues(Task task) {
-        task.setTaskId(idGenerator.generate());
-        task.setCreatedAt(dateTimeProvider.now());
     }
 
     public TaskResourceResponse updateTask(UpdateTaskRequestResource requestResource) {
@@ -59,6 +63,20 @@ public class TaskService {
         persistUpdatedEntity(taskEntity);
 
         return mapper.toResource(taskEntity);
+    }
+
+    public void deleteTask(String taskId) {
+        TaskEntity taskEntity = getIfExists(taskId);
+        taskRepository.deleteByTaskId(taskEntity.getId());
+    }
+
+    private TaskEntity getIfExists(String taskId) {
+        return taskRepository.getByTaskId(taskId).orElseThrow(ResourceNotFoundException::new);
+    }
+
+    private void setSystemValues(Task task) {
+        task.setTaskId(idGenerator.generate());
+        task.setCreatedAt(dateTimeProvider.now());
     }
 
     private void persistUpdatedEntity(TaskEntity taskEntity) {
@@ -73,22 +91,5 @@ public class TaskService {
         taskEntity.setTitle(task.getTitle());
     }
 
-    public void deleteTask(String taskId) {
-        TaskEntity taskEntity = getIfExists(taskId);
-        taskRepository.deleteByTaskId(taskEntity.getId());
-    }
 
-    private TaskEntity getIfExists(String taskId) {
-        return taskRepository.getByTaskId(taskId).orElseThrow(ResourceNotFoundException::new);
-    }
-
-
-
-    public TaskResourceResponse findByTaskId(String taskId) {
-        return mapper.toResource(taskRepositoryJpa.findByTaskId(taskId));
-    }
-
-    public Page<TaskEntity> findAll(TaskSpec taskSpec, Pageable pageable) {
-        return taskRepositoryJpa.findAll(taskSpec, taskSpec, pageable);
-    }
 }

@@ -2,12 +2,18 @@ package com.faisal.smarttaskmanager.models.db;
 
 import com.faisal.smarttaskmanager.models.enums.Category;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TaskEntity {
     @Id @GeneratedValue
     private Long id;
@@ -33,3 +39,5 @@ public class TaskEntity {
     @ManyToOne
     private UserEntity userEntities;
 }
+
+
