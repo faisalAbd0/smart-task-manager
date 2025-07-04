@@ -1,14 +1,23 @@
 package com.faisal.smarttaskmanager.controllers;
 
 
+import com.faisal.smarttaskmanager.models.db.TaskEntity;
+import com.faisal.smarttaskmanager.models.enums.Category;
 import com.faisal.smarttaskmanager.models.resources.requests.CreateTaskRequestResource;
 import com.faisal.smarttaskmanager.models.resources.TaskResourceResponse;
 import com.faisal.smarttaskmanager.models.resources.requests.UpdateTaskRequestResource;
+import com.faisal.smarttaskmanager.repository.specification.TaskSpec;
 import com.faisal.smarttaskmanager.services.TaskService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.SortDefault;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -20,15 +29,20 @@ public class TaskController {
 
     @GetMapping("/{taskId}")
     @ResponseStatus(HttpStatus.OK)
-    public TaskResourceResponse findByTaskId(@PathVariable("taskId") String taskId){
+    public TaskResourceResponse findByTaskId(@PathVariable("taskId") String taskId) {
         return taskService.findByTaskId(taskId);
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<TaskResourceResponse> findAllTasks(){
-        return taskService.findAll();
+    public Page<TaskEntity> findAllTasks(
+            TaskSpec spec
+            , @SortDefault(sort = "deadline", direction = Sort.Direction.DESC) Pageable pageable) {
+
+        return taskService.findAll(spec, pageable);
     }
+
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TaskResourceResponse addTask(@RequestBody CreateTaskRequestResource requestResource) {
@@ -43,7 +57,7 @@ public class TaskController {
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
-    public void deleteTask(String taskId){
+    public void deleteTask(String taskId) {
         taskService.deleteTask(taskId);
     }
 }

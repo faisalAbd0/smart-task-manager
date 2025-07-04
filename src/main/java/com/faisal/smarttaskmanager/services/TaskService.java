@@ -12,10 +12,13 @@ import com.faisal.smarttaskmanager.mappers.TaskMapper;
 import com.faisal.smarttaskmanager.models.db.TaskEntity;
 import com.faisal.smarttaskmanager.contracts.TaskRepository;
 import com.faisal.smarttaskmanager.repository.TaskRepositoryJpa;
+import com.faisal.smarttaskmanager.repository.specification.TaskSpec;
 import com.faisal.smarttaskmanager.validators.CreateTaskValidator;
 import com.faisal.smarttaskmanager.validators.UpdateTaskValidator;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -79,11 +82,13 @@ public class TaskService {
         return taskRepository.getByTaskId(taskId).orElseThrow(ResourceNotFoundException::new);
     }
 
-    public List<TaskResourceResponse> findAll() {
-        return mapper.toResourceList(taskRepositoryJpa.findAll());
-    }
+
 
     public TaskResourceResponse findByTaskId(String taskId) {
         return mapper.toResource(taskRepositoryJpa.findByTaskId(taskId));
+    }
+
+    public Page<TaskEntity> findAll(TaskSpec taskSpec, Pageable pageable) {
+        return taskRepositoryJpa.findAll(taskSpec, taskSpec, pageable);
     }
 }

@@ -2,16 +2,23 @@ package com.faisal.smarttaskmanager.repository;
 
 import com.faisal.smarttaskmanager.models.db.TaskEntity;
 import com.faisal.smarttaskmanager.models.resources.TaskResourceResponse;
+import com.faisal.smarttaskmanager.repository.specification.TaskSpec;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-public interface TaskRepositoryJpa extends JpaRepository<TaskEntity, Long>{
+public interface TaskRepositoryJpa extends JpaRepository<TaskEntity, Long>, JpaSpecificationExecutor<TaskEntity> {
     Optional<TaskEntity> getByTaskId(String taskId);
+    TaskEntity findByTaskId(String taskId);
+
 
     List<TaskEntity> findAllByDeadlineAfter(LocalDateTime deadlineAfter);
 
-    TaskEntity findByTaskId(String taskId);
+    Page<TaskEntity> findAll(Specification<TaskEntity> spec , Pageable pageable);
 }
