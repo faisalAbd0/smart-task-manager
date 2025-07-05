@@ -36,8 +36,6 @@ public class TaskEntity {
     private boolean completed = false;
     private boolean deadlineNear = false;
 
-    @ManyToOne
-    private UserEntity userEntities;
 }
 
 

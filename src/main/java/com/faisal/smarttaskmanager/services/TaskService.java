@@ -3,20 +3,19 @@ package com.faisal.smarttaskmanager.services;
 
 import com.faisal.smarttaskmanager.contracts.DateTimeProvider;
 import com.faisal.smarttaskmanager.contracts.IdGenerator;
+import com.faisal.smarttaskmanager.contracts.TaskRepository;
 import com.faisal.smarttaskmanager.exceptions.ResourceNotFoundException;
-import com.faisal.smarttaskmanager.models.resources.requests.CreateTaskRequestResource;
-import com.faisal.smarttaskmanager.models.resources.Task;
-import com.faisal.smarttaskmanager.models.resources.TaskResourceResponse;
-import com.faisal.smarttaskmanager.models.resources.requests.UpdateTaskRequestResource;
 import com.faisal.smarttaskmanager.mappers.TaskMapper;
 import com.faisal.smarttaskmanager.models.db.TaskEntity;
-import com.faisal.smarttaskmanager.contracts.TaskRepository;
+import com.faisal.smarttaskmanager.models.resources.Task;
+import com.faisal.smarttaskmanager.models.resources.TaskResourceResponse;
+import com.faisal.smarttaskmanager.models.resources.requests.CreateTaskRequestResource;
+import com.faisal.smarttaskmanager.models.resources.requests.UpdateTaskRequestResource;
 import com.faisal.smarttaskmanager.repository.TaskRepositoryJpa;
 import com.faisal.smarttaskmanager.repository.specification.TaskSpec;
 import com.faisal.smarttaskmanager.validators.CreateTaskValidator;
 import com.faisal.smarttaskmanager.validators.UpdateTaskValidator;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
@@ -41,7 +40,7 @@ public class TaskService {
     }
 
     public Page<TaskResourceResponse> findAll(TaskSpec taskSpec, Pageable pageable) {
-        Page<TaskEntity> entities = taskRepositoryJpa.findAll(taskSpec, taskSpec, pageable);
+        Page<TaskEntity> entities = taskRepositoryJpa.findAll(taskSpec, pageable);
         return entities.map(mapper::toResource);
     }
 
@@ -54,11 +53,11 @@ public class TaskService {
         return mapper.toResource(savedEntity);
     }
 
-    public TaskResourceResponse updateTask(UpdateTaskRequestResource requestResource) {
+    public TaskResourceResponse updateTask(String taskId, UpdateTaskRequestResource requestResource) {
         updateTaskValidator.validateTaskInfo(requestResource);
 
         Task task = mapper.toTask(requestResource);
-        TaskEntity taskEntity = getIfExists(task.getTaskId());
+        TaskEntity taskEntity = getIfExists(taskId);
         updateTaskEntity(taskEntity, task);
         persistUpdatedEntity(taskEntity);
 

@@ -1,0 +1,69 @@
+{
+  "realm": "smart-task-manager",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "smart-task-client",
+      "secret": "my-super-secret",
+      "enabled": true,
+      "protocol": "openid-connect",
+      "publicClient": false,
+      "redirectUris": [
+        "http://localhost:8080/*"
+      ],
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": true,
+      "attributes": {
+        "client.secret.creation.time": "2024-01-01T00:00:00Z"
+      }
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "USER"
+      },
+      {
+        "name": "ADMIN"
+      }
+    ]
+  },
+  "users": [
+    {
+      "username": "faisal",
+      "enabled": true,
+      "email": "faisal.user@gmail.com",
+      "firstName": "Faisal",
+      "lastName": "Abdo",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "faisal123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "USER"
+      ]
+    },
+
+    {
+      "username": "faisal_admin",
+      "enabled": true,
+      "email": "faisal.admin@gmail.com",
+      "firstName": "Faisal",
+      "lastName": "Admin",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "faisal123",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "ADMIN"
+      ]
+    }
+  ]
+}

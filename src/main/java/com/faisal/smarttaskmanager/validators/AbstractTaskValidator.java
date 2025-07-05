@@ -2,9 +2,9 @@
 package com.faisal.smarttaskmanager.validators;
 
 
-import com.faisal.smarttaskmanager.models.enums.Category;
 import com.faisal.smarttaskmanager.exceptions.DomainException;
 import com.faisal.smarttaskmanager.exceptions.Violation;
+import com.faisal.smarttaskmanager.models.enums.Category;
 import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDateTime;

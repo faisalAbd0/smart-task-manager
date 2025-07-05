@@ -3,6 +3,7 @@ package com.faisal.smarttaskmanager.exceptions;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -29,10 +30,18 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Set<Violation>> handleInvalidFormat(HttpMessageNotReadableException exception) {
         log.error("HttpMessageNotReadableException", exception);
-        String message = "Invalid input format. Possibly wrong datetime format.";
+        String message = "Invalid input format. Possibly wrong datetime format or Invalid category type.";
         return ResponseEntity
                 .badRequest()
                 .body(Set.of(Violation.of("error", message)));
+    }
+
+    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
+    public ResponseEntity<Set<Violation>> handleInvalidRequestData(HttpMediaTypeNotSupportedException exception) {
+        log.error("HttpMediaTypeNotSupportedException", exception);
+        return ResponseEntity
+                .badRequest()
+                .body(Set.of(Violation.of("error", exception.getMessage())));
     }
 
     @ExceptionHandler(Exception.class)

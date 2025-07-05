@@ -5,8 +5,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Objects;
-
 @Getter
 @ToString
 @EqualsAndHashCode
@@ -14,7 +12,7 @@ import java.util.Objects;
 public class Violation {
     private final String violator;
     private final String errorMessage;
-    
+
     public static Violation of(String violator, String errorMessage) {
         return new Violation(violator, errorMessage);
     }

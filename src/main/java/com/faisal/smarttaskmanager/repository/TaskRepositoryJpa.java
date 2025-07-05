@@ -17,4 +17,6 @@ public interface TaskRepositoryJpa extends JpaRepository<TaskEntity, Long>, JpaS
     List<TaskEntity> findAllByDeadlineAfter(LocalDateTime deadlineAfter);
 
     Page<TaskEntity> findAll(Specification<TaskEntity> spec , Pageable pageable);
+
+    List<TaskEntity> findAllByDeadlineBefore(LocalDateTime deadlineBefore);
 }

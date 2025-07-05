@@ -18,7 +18,6 @@ public class CreateTaskRequestResource {
     private String taskId;
     private String title;
     private String description;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime deadline;
     private Category category;
 

@@ -14,6 +14,32 @@ services:
       - db-data12:/var/lib/postgresql/data
 
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:legacy
+    environment:
+      DB_VENDOR: POSTGRES
+      DB_ADDR: postgres
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_SCHEMA: public
+      DB_PASSWORD: password
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: P@ssw0rd
+      KEYCLOAK_IMPORT: /tmp/realm-config.json
+    volumes:
+      - ./smart-task-manager-realm.json:/tmp/realm-config.json
+    ports:
+      - "8180:8080"
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+
+
 volumes:
   db-data12:
-

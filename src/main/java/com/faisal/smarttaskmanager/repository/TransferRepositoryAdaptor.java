@@ -5,7 +5,6 @@ import com.faisal.smarttaskmanager.contracts.TaskRepository;
 import com.faisal.smarttaskmanager.mappers.TaskMapper;
 import com.faisal.smarttaskmanager.models.db.TaskEntity;
 import com.faisal.smarttaskmanager.models.resources.Task;
-import com.faisal.smarttaskmanager.models.resources.TaskResourceResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -39,7 +38,7 @@ public class TransferRepositoryAdaptor implements TaskRepository {
 
     @Override
     public List<TaskEntity> getNearDeadlineTasks() {
-        return taskRepositoryJpa.findAllByDeadlineAfter(LocalDateTime.now().plusDays(1));
+        return taskRepositoryJpa.findAllByDeadlineBefore((LocalDateTime.now().plusDays(1)));
     }
 
     @Override

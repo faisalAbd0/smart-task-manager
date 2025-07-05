@@ -2,7 +2,6 @@ package com.faisal.smarttaskmanager.contracts;
 
 import com.faisal.smarttaskmanager.models.db.TaskEntity;
 import com.faisal.smarttaskmanager.models.resources.Task;
-import com.faisal.smarttaskmanager.models.resources.TaskResourceResponse;
 
 import java.util.List;
 import java.util.Optional;

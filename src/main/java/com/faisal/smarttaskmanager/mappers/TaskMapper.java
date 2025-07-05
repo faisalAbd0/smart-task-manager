@@ -1,10 +1,10 @@
 package com.faisal.smarttaskmanager.mappers;
 
 
-import com.faisal.smarttaskmanager.models.resources.requests.CreateTaskRequestResource;
+import com.faisal.smarttaskmanager.models.db.TaskEntity;
 import com.faisal.smarttaskmanager.models.resources.Task;
 import com.faisal.smarttaskmanager.models.resources.TaskResourceResponse;
-import com.faisal.smarttaskmanager.models.db.TaskEntity;
+import com.faisal.smarttaskmanager.models.resources.requests.CreateTaskRequestResource;
 import com.faisal.smarttaskmanager.models.resources.requests.UpdateTaskRequestResource;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

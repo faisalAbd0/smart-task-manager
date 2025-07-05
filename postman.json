@@ -1,0 +1,526 @@
+{
+  "info": {
+    "_postman_id": "0770a922-85a8-43ff-b229-9264d4058035",
+    "name": "key-clock",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "37370119"
+  },
+  "item": [
+    {
+      "name": "http://localhost:8180/auth/realms/faisal_realm/protocol/openid-connect/token",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "grant_type",
+              "value": "password",
+              "type": "text"
+            },
+            {
+              "key": "client_id",
+              "value": "smart-task-client",
+              "type": "text"
+            },
+            {
+              "key": "client_secret",
+              "value": "my-super-secret",
+              "type": "text"
+            },
+            {
+              "key": "username",
+              "value": "faisal",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "faisal123",
+              "type": "text"
+            },
+            {
+              "key": "scope",
+              "value": "openid",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8180/auth/realms/smart-task-manager/protocol/openid-connect/token",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8180",
+          "path": [
+            "auth",
+            "realms",
+            "smart-task-manager",
+            "protocol",
+            "openid-connect",
+            "token"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All Tasks",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "grant_type",
+              "value": "password",
+              "type": "text"
+            },
+            {
+              "key": "client_id",
+              "value": "smart-task-client",
+              "type": "text"
+            },
+            {
+              "key": "client_secret",
+              "value": "my-super-secret",
+              "type": "text"
+            },
+            {
+              "key": "username",
+              "value": "faisal",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "faisal123",
+              "type": "text"
+            },
+            {
+              "key": "scope",
+              "value": "openid",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/tasks",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "tasks"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All tasks by category",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "grant_type",
+              "value": "password",
+              "type": "text"
+            },
+            {
+              "key": "client_id",
+              "value": "smart-task-client",
+              "type": "text"
+            },
+            {
+              "key": "client_secret",
+              "value": "my-super-secret",
+              "type": "text"
+            },
+            {
+              "key": "username",
+              "value": "faisal",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "faisal123",
+              "type": "text"
+            },
+            {
+              "key": "scope",
+              "value": "openid",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/tasks?category=WORK",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "tasks"
+          ],
+          "query": [
+            {
+              "key": "category",
+              "value": "WORK"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All tasks by dealine",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "grant_type",
+              "value": "password",
+              "type": "text"
+            },
+            {
+              "key": "client_id",
+              "value": "smart-task-client",
+              "type": "text"
+            },
+            {
+              "key": "client_secret",
+              "value": "my-super-secret",
+              "type": "text"
+            },
+            {
+              "key": "username",
+              "value": "faisal",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "faisal123",
+              "type": "text"
+            },
+            {
+              "key": "scope",
+              "value": "openid",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/tasks?deadline-before=2025-10-10T00:00:00",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "tasks"
+          ],
+          "query": [
+            {
+              "key": "deadline-before",
+              "value": "2025-10-10T00:00:00"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All tasks by pages",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "grant_type",
+              "value": "password",
+              "type": "text"
+            },
+            {
+              "key": "client_id",
+              "value": "smart-task-client",
+              "type": "text"
+            },
+            {
+              "key": "client_secret",
+              "value": "my-super-secret",
+              "type": "text"
+            },
+            {
+              "key": "username",
+              "value": "faisal",
+              "type": "text"
+            },
+            {
+              "key": "password",
+              "value": "faisal123",
+              "type": "text"
+            },
+            {
+              "key": "scope",
+              "value": "openid",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/tasks?page=2&size=2&sort=deadline,asc",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "tasks"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "2"
+            },
+            {
+              "key": "size",
+              "value": "2"
+            },
+            {
+              "key": "sort",
+              "value": "deadline,asc"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Task By Id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/tasks/TASK_2025-07-04T22:36:04.218158505",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "tasks",
+            "TASK_2025-07-04T22:36:04.218158505"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "add new Task",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"code refactor\",\n  \"description\": \"refactor the unit test of the code\",\n  \"deadline\": \"2025-07-06T14:11:02\",\n  \"category\": \"WORK\",\n  \"completed\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/tasks",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "tasks"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "delete task",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8080/api/v1/tasks/TASK_2025-07-04T22:36:04.218158505",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "tasks",
+            "TASK_2025-07-04T22:36:04.218158505"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "edit task",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"new\",\n  \"description\": \"new\",\n  \"deadline\": \"2025-07-21T14:51:02\",\n  \"category\": \"PERSONAL\",\n  \"completed\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8080/api/v1/tasks/TASK_2025-07-04T22:36:04.218158505",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "api",
+            "v1",
+            "tasks",
+            "TASK_2025-07-04T22:36:04.218158505"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJsbVdDcUdiZVVvZHl4dlFtLVdsbXhjRFJGck0zTGxpNG5aX1JPZVVBMmVjIn0.eyJleHAiOjE3NTE3MTk2ODgsImlhdCI6MTc1MTcxOTM4OCwianRpIjoiOWUyN2ZjNTktZjliZC00OGZlLWFiMmYtYmQxMWM5NzBhM2ZiIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MTgwL2F1dGgvcmVhbG1zL3NtYXJ0LXRhc2stbWFuYWdlciIsInN1YiI6IjQ5ZGRjNmFhLWE0Y2UtNGQ0MS1iNzhkLWUzNjQwMTRkNjZiYyIsInR5cCI6IkJlYXJlciIsImF6cCI6InNtYXJ0LXRhc2stY2xpZW50Iiwic2Vzc2lvbl9zdGF0ZSI6IjhiYzVjZDkzLTUyOTQtNDRmYy05MjVkLWYzNjFmNjQyYTlkMSIsImFjciI6IjEiLCJhbGxvd2VkLW9yaWdpbnMiOlsiaHR0cDovL2xvY2FsaG9zdDo4MDgwIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJVU0VSIl19LCJzY29wZSI6Im9wZW5pZCBwcm9maWxlIGVtYWlsIiwic2lkIjoiOGJjNWNkOTMtNTI5NC00NGZjLTkyNWQtZjM2MWY2NDJhOWQxIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRmFpc2FsIEFiZG8iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJmYWlzYWwiLCJnaXZlbl9uYW1lIjoiRmFpc2FsIiwiZmFtaWx5X25hbWUiOiJBYmRvIiwiZW1haWwiOiJmYWlzYWwudXNlckBnbWFpbC5jb20ifQ.mzxqO6fcmMrxbJyTBvDrK7V8ilaJUZD832j4c3blEZP9mNk0vacJW4tnmPsZ7nq3Phrzd4FaGN9eWvdACniK3FYd_6PL3FXmsOoWZoK9dBW13hsHb53gSuPmmiJuRUCigZD-V3HuJaUUksjPDb_ckpZlS4OD59JSyjYIzpWqKF8ygkkPwFTAlgNCm4BFp_2WJIzu5pvmdhkpHM0cFjYXbH3-tPzeXIf3_k7vbHs61Mt0xp2SUQQzPLFUEyNJFDUmOgxVe8Pd7TxdkrK3sMQ6uf7z3KXeswLQ3EUuG-nWBq3gMK7AKUmwfwb78f5s8uLhxKLmxxshWGS8-OYFVI79Qw",
+      "type": "default"
+    }
+  ]
+}

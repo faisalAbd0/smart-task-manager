@@ -22,4 +22,5 @@ public class TaskResourceResponse {
     private LocalDateTime deadline;
     private Category category;
     private boolean completed;
+    private boolean deadlineNear;
 }

@@ -14,10 +14,6 @@ import com.faisal.smarttaskmanager.repository.TaskRepositoryJpa;
 import com.faisal.smarttaskmanager.repository.specification.TaskSpec;
 import com.faisal.smarttaskmanager.validators.CreateTaskValidator;
 import com.faisal.smarttaskmanager.validators.UpdateTaskValidator;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -35,7 +31,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -105,7 +100,8 @@ class TaskServiceTest {
     }
     @Test
     void whenUpdateTask_thenUpdatesEntityCorrectly() {
-        UpdateTaskRequestResource request = UpdateTaskRequestResource.builder().taskId("id").build();
+        String taskId = "id";
+        UpdateTaskRequestResource request = UpdateTaskRequestResource.builder().build();
         Task task = new Task();
         task.setTaskId("id");
         task.setTitle("Updated");
@@ -117,7 +113,7 @@ class TaskServiceTest {
         Mockito.when(taskRepository.getByTaskId("id")).thenReturn(Optional.of(entity));
         Mockito.when(mapper.toResource(entity)).thenReturn(response);
 
-        TaskResourceResponse result = taskService.updateTask(request);
+        TaskResourceResponse result = taskService.updateTask(taskId, request);
 
         assertThat(result).isEqualTo(response);
         assertThat(entity.getTitle()).isEqualTo("Updated");
