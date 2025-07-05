@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  accounts_db:
+  smart_task_manager:
     image: postgres:latest
     restart: always
     ports:
@@ -12,7 +12,6 @@ services:
       POSTGRES_PASSWORD: pgpass
     volumes:
       - db-data12:/var/lib/postgresql/data
-
 
   keycloak:
     image: quay.io/keycloak/keycloak:legacy
@@ -39,7 +38,9 @@ services:
       POSTGRES_DB: keycloak
       POSTGRES_USER: keycloak
       POSTGRES_PASSWORD: password
-
+    volumes:
+      - keycloak-data:/var/lib/postgresql/data
 
 volumes:
   db-data12:
+  keycloak-data:

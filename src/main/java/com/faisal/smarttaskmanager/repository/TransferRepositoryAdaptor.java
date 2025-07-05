@@ -38,7 +38,7 @@ public class TransferRepositoryAdaptor implements TaskRepository {
 
     @Override
     public List<TaskEntity> getNearDeadlineTasks() {
-        return taskRepositoryJpa.findAllByDeadlineBefore((LocalDateTime.now().plusDays(1)));
+        return taskRepositoryJpa.findAllByDeadlineBefore(LocalDateTime.now().plusDays(1));
     }
 
     @Override

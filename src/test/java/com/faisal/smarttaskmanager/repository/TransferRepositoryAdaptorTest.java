@@ -61,12 +61,12 @@ class TransferRepositoryAdaptorTest {
     @Test
     void whenGetNearDeadlineTasks_thenReturnFromJpa() {
         List<TaskEntity> expected = List.of(TaskEntity.builder().taskId("t1").build());
-        when(taskRepositoryJpa.findAllByDeadlineAfter(any())).thenReturn(expected);
+        when(taskRepositoryJpa.findAllByDeadlineBefore(any())).thenReturn(expected);
 
         List<TaskEntity> result = adaptor.getNearDeadlineTasks();
 
         assertThat(result).isEqualTo(expected);
-        verify(taskRepositoryJpa).findAllByDeadlineAfter(any());
+        verify(taskRepositoryJpa).findAllByDeadlineBefore(any());
     }
 
     @Test

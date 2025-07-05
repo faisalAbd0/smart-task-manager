@@ -22,7 +22,6 @@ public interface TaskMapper {
     @Mapping(target = "deadlineNear", ignore = true)
     @Mapping(target = "completed", ignore = true)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "userEntities", ignore = true)
     TaskEntity toEntity(Task task);
 
 

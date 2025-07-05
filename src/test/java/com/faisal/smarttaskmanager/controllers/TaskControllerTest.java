@@ -9,6 +9,8 @@ import com.faisal.smarttaskmanager.services.TaskService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.domain.Page;
@@ -26,7 +28,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(controllers = TaskController.class)
+@WebMvcTest(controllers = TaskController.class, excludeAutoConfiguration = {
+        OAuth2ClientAutoConfiguration.class,
+        OAuth2ResourceServerAutoConfiguration.class
+})
 @AutoConfigureMockMvc(addFilters = false)
 class TaskControllerTest {
 
@@ -138,7 +143,7 @@ class TaskControllerTest {
     void whenDeleteTask_thenReturnOk() throws Exception {
         String taskId = UUID.randomUUID().toString();
 
-        mvc.perform(MockMvcRequestBuilders.delete("/api/v1/tasks/{id}",taskId))
+        mvc.perform(MockMvcRequestBuilders.delete("/api/v1/tasks/{id}", taskId))
                 .andExpect(status().isOk());
 
         Mockito.verify(taskService).deleteTask(taskId);
